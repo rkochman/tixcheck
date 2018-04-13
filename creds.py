@@ -4,6 +4,9 @@ from google.cloud import datastore
 
 def get_stubhub_key(project_id):
 	return get_lru_key('Stubhub', project_id)
+	
+def get_email_key(project_id):
+	return get_lru_key('Sendgrid', project_id)
 
 ###########################
 

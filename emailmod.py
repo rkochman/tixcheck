@@ -1,4 +1,8 @@
 import requests
+import importlib
+creds = importlib.import_module('creds')
+
+PROJECT_ID = 'kochman-net-website'
 
 def get_email_content(subject, body):
 	out =  '''
@@ -33,12 +37,13 @@ def get_email_content(subject, body):
 '''
 	return out
 	
-email_token = '' #need to get email token
+def get_email_token():
+	return creds.get_email_key(PROJECT_ID)
 
 def send_email(subject, body):
 	email_content = get_email_content(subject, body)
 	email_url = 'https://api.sendgrid.com/v3/mail/send'
-	email_headers = {'Authorization': email_token, 
+	email_headers = {'Authorization': get_email_token(), 
 		'Content-Type': 'application/json',
 		'Access-Control-Allow-Origin': '*'} 
 	email_result = requests.post(email_url, headers=email_headers, data=email_content)
